@@ -5,6 +5,7 @@ import re
 import pathlib
 
 # options
+
 extension_list = (".jpg", ".jpeg", ".png", ".tif", ".tiff")
 path_regex = r'[\\\/]+'
 path_pad_left = False
@@ -12,17 +13,22 @@ name_regex = r'[-_\s]+'
 name_pad_left = False
 
 def filter(str):
-  # filename, extension = os.path.splitext(str)
 
   if str.lower().endswith(extension_list) == False:
     return False
+  
+  # add more filters
+  # path = pathlib.Path(str)
+  # filename = path.stem
+  # dirname = os.path.dirname(str)
+  # extension = os.path.splitext(str)[1]
 
   return True
 
 
 
 
-# 
+# methods
 
 def get_files(root):
   result = []
