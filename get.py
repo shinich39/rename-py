@@ -4,6 +4,7 @@ import csv
 import re
 import pathlib
 
+# options
 extension_list = (".jpg", ".jpeg", ".png", ".tif", ".tiff")
 path_regex = r'[\\\/]+'
 path_pad_left = False
@@ -17,6 +18,11 @@ def filter(str):
     return False
 
   return True
+
+
+
+
+# 
 
 def get_files(root):
   result = []
@@ -38,23 +44,27 @@ def filter_files(files):
 
 def split_files(files):
   path_list = []
+  name_list = []
   path_parts_list = []
   name_parts_list = []
   for file_path in files:
     file_path = re.sub(path_regex, "/", file_path)
+    path = pathlib.Path(file_path)
+    filename = path.stem
 
     path_parts = re.split(path_regex, file_path)
+    path_parts[len(path_parts) - 1] = filename
 
-    path = pathlib.Path(file_path)
-    filename, extension = os.path.splitext(path.name)
     name_parts = re.split(name_regex, filename)
-    name_parts.append(extension)
+    # extension = os.path.splitext(path.name)[1]
+    # name_parts.append(extension)
 
     path_list.append(file_path)
+    name_list.append(filename)
     path_parts_list.append(path_parts)
     name_parts_list.append(name_parts)
 
-  return (path_list, path_parts_list, name_parts_list)
+  return (path_list, name_list, path_parts_list, name_parts_list)
 
 def get_max_length(l):
   size = 0
@@ -80,16 +90,16 @@ def main(root):
   files = get_files(root)
   files = filter_files(files)
 
-  # path => (paths, path_parts, name-parts)
-  files, path_parts, name_parts = split_files(files)
+  # path => (paths, names, path_parts, name-parts)
+  paths, names, path_parts, name_parts = split_files(files)
 
   add_pad(path_parts, get_max_length(path_parts), path_pad_left)
   add_pad(name_parts, get_max_length(name_parts), name_pad_left)
 
   # join
   data = []
-  for i in range(len(files)):
-    data.append([files[i], "=>", *path_parts[i], "=>", *name_parts[i], "=>", files[i]])
+  for i in range(len(paths)):
+    data.append([paths[i], "=>", *path_parts[i], "=>", *name_parts[i], "=>", names[i]])
 
   # debug
   print(">", f"Load {len(data)} files.")

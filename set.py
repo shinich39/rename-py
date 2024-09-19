@@ -2,6 +2,7 @@ import os
 import csv
 import re
 import sys
+import pathlib
 
 def is_empty(str):
   return str == None or str == ""
@@ -13,7 +14,11 @@ def main(file_path):
     queue = []
     for row in reader:
       old_path = row[0]
-      new_path = row[len(row) - 1]
+      new_name = row[len(row) - 1] 
+      dir_name = os.path.dirname(old_path)
+      extension = os.path.splitext(old_path)[1]
+      new_path = dir_name + "/" + new_name + extension
+      
       if is_empty(old_path):
         raise Exception(f"{old_path} is not valid value")
       
@@ -32,7 +37,7 @@ def main(file_path):
         print(">", f"{old_path} is not changed")
         continue
 
-      os.rename(old_path, new_path)
+      # os.rename(old_path, new_path)
       print(">", old_path, "=>", new_path)
       change_count += 1
 
