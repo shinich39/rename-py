@@ -29,14 +29,14 @@ def main(file_path):
     for old_path, new_path in queue:
       
       if old_path == new_path:
-        print(f"{old_path} is not changed")
+        print(">", f"{old_path} is not changed")
         continue
 
       os.rename(old_path, new_path)
-      print(old_path, "=>", new_path)
+      print(">", old_path, "=>", new_path)
       change_count += 1
 
-    print(f"{change_count} files changed")
+    print(">", f"{change_count} files changed")
 
 if __name__ == "__main__":
   try:
@@ -55,7 +55,7 @@ if __name__ == "__main__":
     if file_path.endswith(".csv") == False:
       raise Exception(f"{file_path} is not CSV file")
     
-    print("> CSV:", file_path)
+    print(">", "CSV:", file_path)
 
     main(file_path)
   except Exception as e:
