@@ -1,0 +1,4 @@
+test/test-1.jpg,=>,test,test-1,,=>,test,1,,=>,test-1
+test/test-2.jpg,=>,test,test-2,,=>,test,2,,=>,test-2
+test/deep/test-2-1.jpg,=>,test,deep,test-2-1,=>,test,2,1,=>,test-2
+test/deep/test-2-2.jpg,=>,test,deep,test-2-2,=>,test,2,2,=>,test-3

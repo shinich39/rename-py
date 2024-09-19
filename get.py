@@ -19,9 +19,9 @@ def filter(str):
   
   # add more filters
   # path = pathlib.Path(str)
-  # filename = path.stem
-  # dirname = os.path.dirname(str)
-  # extension = os.path.splitext(str)[1]
+  # filename = get_filename(str)
+  # dirname = get_dirname(str)
+  # extension = get_extension(str)
 
   return True
 
@@ -29,6 +29,16 @@ def filter(str):
 
 
 # methods
+
+def get_dirname(str):
+  return os.path.dirname(str)
+
+def get_filename(str):
+  path = pathlib.Path(str)
+  return path.stem
+
+def get_extension(str):
+  return os.path.splitext(str)[1]
 
 def get_files(root):
   result = []
@@ -55,15 +65,12 @@ def split_files(files):
   name_parts_list = []
   for file_path in files:
     file_path = re.sub(path_regex, "/", file_path)
-    path = pathlib.Path(file_path)
-    filename = path.stem
+    filename = get_filename(file_path)
 
     path_parts = re.split(path_regex, file_path)
     path_parts[len(path_parts) - 1] = filename
 
     name_parts = re.split(name_regex, filename)
-    # extension = os.path.splitext(path.name)[1]
-    # name_parts.append(extension)
 
     path_list.append(file_path)
     name_list.append(filename)

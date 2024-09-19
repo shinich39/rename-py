@@ -7,6 +7,16 @@ import pathlib
 def is_empty(str):
   return str == None or str == ""
 
+def get_dirname(str):
+  return os.path.dirname(str)
+
+def get_filename(str):
+  path = pathlib.Path(str)
+  return path.stem
+
+def get_extension(str):
+  return os.path.splitext(str)[1]
+
 def main(file_path):
   with open(file_path, "r") as file:
     reader = csv.reader(file)
@@ -15,10 +25,10 @@ def main(file_path):
     for row in reader:
       old_path = row[0]
       new_name = row[len(row) - 1] 
-      dir_name = os.path.dirname(old_path)
-      extension = os.path.splitext(old_path)[1]
+      dir_name = get_dirname(old_path)
+      extension = get_extension(old_path)
       new_path = dir_name + "/" + new_name + extension
-      
+
       if is_empty(old_path):
         raise Exception(f"{old_path} is not valid value")
       
@@ -37,7 +47,7 @@ def main(file_path):
         print(">", f"{old_path} is not changed")
         continue
 
-      # os.rename(old_path, new_path)
+      os.rename(old_path, new_path)
       print(">", old_path, "=>", new_path)
       change_count += 1
 
@@ -64,5 +74,5 @@ if __name__ == "__main__":
 
     main(file_path)
   except Exception as e:
-    print(e)
+    print("> Error:", e)
 
