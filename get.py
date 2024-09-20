@@ -43,12 +43,16 @@ def get_extension(str):
 def get_files(root):
   result = []
   for path, subdirs, files in os.walk(root):
+
     for name in files:
       file_path = os.path.join(path, name)
+
       if re.search(r'__pycache__', file_path):
         continue
+
       file_path = re.sub(r'^\.[\\\/]+', "", file_path)
       result.append(file_path)
+      
   return result
 
 def filter_files(files):
