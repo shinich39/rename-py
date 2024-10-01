@@ -1,3 +1,8 @@
+get.bat,=>,get,,,=>,get,,=>,get
+get.py,=>,get,,,=>,get,,=>,get
+README.md,=>,README,,,=>,README,,=>,README
+set.bat,=>,set,,,=>,set,,=>,set
+set.py,=>,set,,,=>,set,,=>,set
 test/test-1.jpg,=>,test,test-1,,=>,test,1,=>,test-1
 test/test-2.jpg,=>,test,test-2,,=>,test,2,=>,test-2
 test/deep/blank 1.jpg,=>,test,deep,blank 1,=>,blank,1,=>,blank 1

@@ -13,11 +13,15 @@ name_regex = r'[-_+=.:;\s]+'
 name_pad_left = False
 
 def filter(str):
-
-  if str.lower().endswith(extension_list) == False:
+  # enable hidden filter
+  if str.startswith(".") == True:
     return False
+
+  # enable extension filter
+  # if str.lower().endswith(extension_list) == False:
+  #   return False
   
-  # add more filters
+  # add more filters...
   # path = pathlib.Path(str)
   # filename = get_filename(str)
   # dirname = get_dirname(str)
