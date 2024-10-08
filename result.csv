@@ -1,6 +1,7 @@
 get.bat,=>,get,,,=>,get,,=>,get
 get.py,=>,get,,,=>,get,,=>,get
 README.md,=>,README,,,=>,README,,=>,README
+result.csv,=>,result,,,=>,result,,=>,result
 set.bat,=>,set,,,=>,set,,=>,set
 set.py,=>,set,,,=>,set,,=>,set
 test/test-1.jpg,=>,test,test-1,,=>,test,1,=>,test-1
