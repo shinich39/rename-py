@@ -22,6 +22,12 @@ py ./set.py
 
 ## Functions  
 
+- Add pad left
+
+```
+=CONCATENATE(REPT(0,2-LEN(A1)),A1)
+```
+
 - Remove all digits from text
 
 ```
