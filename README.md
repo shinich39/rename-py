@@ -1,4 +1,12 @@
-## Usage
+# rename-py
+
+Rename files in subdirectories by csv.  
+
+## Requirements  
+
+- [Python](https://www.python.org/)
+
+## Usage  
 
 Copy and paste get.bat, get.py, set.bat and set.py into the target directory.  
 
