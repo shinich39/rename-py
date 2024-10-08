@@ -9,7 +9,7 @@ import pathlib
 extension_list = (".jpg", ".jpeg", ".png", ".tif", ".tiff")
 path_regex = r'[\\\/]+'
 path_pad_left = False
-name_regex = r'[-_+=.:;\s]+'
+name_regex = r'[-_+=.:;\s]+|([0-9]+)'
 name_pad_left = False
 
 def filter(str):
@@ -28,9 +28,6 @@ def filter(str):
   # extension = get_extension(str)
 
   return True
-
-
-
 
 # methods
 
@@ -71,7 +68,18 @@ def split_files(files):
   name_list = []
   path_parts_list = []
   name_parts_list = []
-  for file_path in files:
+  division_list = []
+
+  prev_path = None
+  for index, file_path in enumerate(files):
+    if prev_path == None:
+      prev_path = os.path.dirname(file_path)
+    elif prev_path != os.path.dirname(file_path):
+      prev_path = os.path.dirname(file_path)
+
+      # Add division row
+      division_list.append(index)
+
     file_path = re.sub(path_regex, "/", file_path)
     filename = get_filename(file_path)
 
@@ -79,13 +87,14 @@ def split_files(files):
     path_parts[len(path_parts) - 1] = filename
 
     name_parts = re.split(name_regex, filename)
+    name_parts = [x for x in name_parts if x != None and x != ""]
 
     path_list.append(file_path)
     name_list.append(filename)
     path_parts_list.append(path_parts)
     name_parts_list.append(name_parts)
 
-  return (path_list, name_list, path_parts_list, name_parts_list)
+  return (path_list, name_list, path_parts_list, name_parts_list, division_list)
 
 def get_max_length(l):
   size = 0
@@ -112,7 +121,7 @@ def main(root):
   files = filter_files(files)
 
   # path => (paths, names, path_parts, name-parts)
-  paths, names, path_parts, name_parts = split_files(files)
+  paths, names, path_parts, name_parts, divisions = split_files(files)
 
   add_pad(path_parts, get_max_length(path_parts), path_pad_left)
   add_pad(name_parts, get_max_length(name_parts), name_pad_left)
@@ -126,6 +135,10 @@ def main(root):
   print(">", f"Load {len(data)} files.")
   for d in data:
     print(">", d[0])
+
+  divisions.reverse()
+  for i in divisions:
+    data.insert(i, [])
 
   # write
   with open("./result.csv", "w", newline="") as f:
