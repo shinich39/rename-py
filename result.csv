@@ -1,17 +1,20 @@
-get.bat,=>,get,,,=>,get,,=>,get
-get.py,=>,get,,,=>,get,,=>,get
-LICENSE,=>,LICENSE,,,=>,LICENSE,,=>,LICENSE
-README.md,=>,README,,,=>,README,,=>,README
-result.csv,=>,result,,,=>,result,,=>,result
-set.bat,=>,set,,,=>,set,,=>,set
-set.py,=>,set,,,=>,set,,=>,set
+get.bat,=>,,,,,=>,get,,=>,get
+get.py,=>,,,,,=>,get,,=>,get
+LICENSE,=>,,,,,=>,LICENSE,,=>,LICENSE
+README.md,=>,,,,,=>,README,,=>,README
+result.csv,=>,,,,,=>,result,,=>,result
+set.bat,=>,,,,,=>,set,,=>,set
+set.py,=>,,,,,=>,set,,=>,set
 
-test/test-1.jpg,=>,test,test-1,,=>,test,1,=>,test-1
-test/test-2.jpg,=>,test,test-2,,=>,test,2,=>,test-2
+test/test-1.jpg,=>,test,,,,=>,test,1,=>,test-1
+test/test-2.jpg,=>,test,,,,=>,test,2,=>,test-2
 
-test/deep/blank 1.jpg,=>,test,deep,blank 1,=>,blank,1,=>,blank 1
-test/deep/blank 2.jpg,=>,test,deep,blank 2,=>,blank,2,=>,blank 2
-test/deep/dot.1.jpg,=>,test,deep,dot.1,=>,dot,1,=>,dot.1
-test/deep/dot.2.jpg,=>,test,deep,dot.2,=>,dot,2,=>,dot.2
-test/deep/test-2.jpg,=>,test,deep,test-2,=>,test,2,=>,test-2
-test/deep/test-3.jpg,=>,test,deep,test-3,=>,test,3,=>,test-3
+test/deep/blank 1.jpg,=>,test,=>,deep,,=>,blank,1,=>,blank 1
+test/deep/blank 2.jpg,=>,test,=>,deep,,=>,blank,2,=>,blank 2
+test/deep/dot.1.jpg,=>,test,=>,deep,,=>,dot,1,=>,dot.1
+test/deep/dot.2.jpg,=>,test,=>,deep,,=>,dot,2,=>,dot.2
+test/deep/test-2.jpg,=>,test,=>,deep,,=>,test,2,=>,test-2
+test/deep/test-3.jpg,=>,test,=>,deep,,=>,test,3,=>,test-3
+
+test/deep2/fish-1.jpg,=>,test,=>,deep,2,=>,fish,1,=>,fish-1
+test/deep2/fish-2.jpg,=>,test,=>,deep,2,=>,fish,2,=>,fish-2

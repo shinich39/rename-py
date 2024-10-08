@@ -8,8 +8,9 @@ import pathlib
 
 extension_list = (".jpg", ".jpeg", ".png", ".tif", ".tiff")
 path_regex = r'[\\\/]+'
-path_pad_left = False
 name_regex = r'[-_+=.:;\s]+|([0-9]+)'
+
+path_pad_left = False
 name_pad_left = False
 
 def filter(str):
@@ -69,22 +70,27 @@ def split_files(files):
   path_parts_list = []
   name_parts_list = []
   division_list = []
+  path_parts_size_list = []
 
   prev_path = None
-  for index, file_path in enumerate(files):
+  for i, file_path in enumerate(files):
     if prev_path == None:
       prev_path = os.path.dirname(file_path)
     elif prev_path != os.path.dirname(file_path):
       prev_path = os.path.dirname(file_path)
 
       # Add division row
-      division_list.append(index)
+      division_list.append(i)
 
     file_path = re.sub(path_regex, "/", file_path)
     filename = get_filename(file_path)
 
-    path_parts = re.split(path_regex, file_path)
-    path_parts[len(path_parts) - 1] = filename
+    path_parts = re.split(path_regex, os.path.dirname(file_path))
+    for j, part in enumerate(path_parts):
+      path_parts[j] = re.split(name_regex, part)
+      path_parts[j] = [x for x in path_parts[j] if x != None and x != ""]
+      
+      
 
     name_parts = re.split(name_regex, filename)
     name_parts = [x for x in name_parts if x != None and x != ""]
@@ -93,6 +99,17 @@ def split_files(files):
     name_list.append(filename)
     path_parts_list.append(path_parts)
     name_parts_list.append(name_parts)
+
+  # split path parts
+  path_parts_sizes = get_max_lengths(path_parts_list)
+  for i, path_parts in enumerate(path_parts_list):
+    for j, parts in enumerate(path_parts):
+      size = path_parts_sizes[j]
+      add_pad_to_list(parts, size, path_pad_left)
+
+  for i, path_parts in enumerate(path_parts_list):
+    path_parts_list[i] = flatten_lists(path_parts)
+  # path_parts_list = flatten_lists(path_parts_list)
 
   return (path_list, name_list, path_parts_list, name_parts_list, division_list)
 
@@ -103,7 +120,26 @@ def get_max_length(l):
       size = len(a)
   return size
 
-def add_pad(lists, size, pad_left):
+def get_max_lengths(l):
+  sizes = []
+  for i, a in enumerate(l):
+    for j, b in enumerate(a):
+      if len(sizes) <= j:
+        sizes.append(0)
+
+      if sizes[j] < len(b):
+        sizes[j] = len(b)
+  return sizes
+  
+
+def add_pad_to_list(list, size, pad_left):
+  while len(list) < size:
+    if pad_left:
+      list.insert(0, "")
+    else:
+      list.append("")
+
+def add_pad_to_lists(lists, size, pad_left):
   for l in lists:
     while len(l) < size:
       if pad_left:
@@ -115,7 +151,15 @@ def add_delimeter(files):
   for arr in files:
     for i, v in enumerate(arr):
       arr[i] = f'"{v}"'
-      
+  
+def flatten_lists(lists):
+  r = []
+  for i, l in enumerate(lists):
+    if i > 0:
+      r += ["=>"]
+    r += l
+  return r
+
 def main(root):
   files = get_files(root)
   files = filter_files(files)
@@ -123,8 +167,8 @@ def main(root):
   # path => (paths, names, path_parts, name-parts)
   paths, names, path_parts, name_parts, divisions = split_files(files)
 
-  add_pad(path_parts, get_max_length(path_parts), path_pad_left)
-  add_pad(name_parts, get_max_length(name_parts), name_pad_left)
+  add_pad_to_lists(path_parts, get_max_length(path_parts), path_pad_left)
+  add_pad_to_lists(name_parts, get_max_length(name_parts), name_pad_left)
 
   # join
   data = []
@@ -136,6 +180,7 @@ def main(root):
   for d in data:
     print(">", d[0])
 
+  # add divisions
   divisions.reverse()
   for i in divisions:
     data.insert(i, [])
