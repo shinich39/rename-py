@@ -44,4 +44,4 @@ py ./set.py
 
 ```
 =RIGHT(A1, LEN(A1) - MAX(IF(ISNUMBER(MID(A1, ROW(INDIRECT("1:"&LEN(A1))), 1) *1)=FALSE, ROW(INDIRECT("1:"&LEN(A1))), 0)))
-``
+```
