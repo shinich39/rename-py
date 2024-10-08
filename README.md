@@ -22,6 +22,12 @@ py ./set.py
 
 ## Functions  
 
+- Join texts
+
+```
+=CONCAT(A1:A2)
+```
+
 - Add pad left
 
 ```
